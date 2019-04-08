@@ -4,10 +4,13 @@ body {
   font-family: 'Roboto';
   justify-content: center;
   margin: 0;
+  overflow-x: hidden;
 }
 .cont {
+  padding-left: 1em;
+  padding-right: 1em;
   margin-top: 15vh;
-  min-width: 50vw;
+  width: 50%;
   display: flex;
   flex-wrap: wrap;
 }
@@ -36,13 +39,18 @@ p {
 }
 #currencies {
   justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 5em;
 }
+
 .currency {
   border: 1px solid white;
   width: 25%;
-  padding: 0;
+  padding: 1em;
   margin: 0;
   background-color: green;
+  flex-grow: 3;
 }
 .currency>p {
   font-size: 1em;

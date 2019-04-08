@@ -20,8 +20,8 @@ def get_coin_price(coin):
 		gain24 = float(price) - float(old_price) #24 hour dollar gain
 	coinArray.append(coin)
 
-coins = ['bitcoin', 'ethereum', 'stellar', 'decred', 'salt', 'dash', 'litecoin', 'icon', 'omisego']
-amount_coins = [0.00426363, 0.526026623632742, 64.925, 0.2391478, 1.5285804, 0.222474, 0.194639, 12.42636, 0.9669056]
+coins = ['bitcoin', 'ethereum', 'stellar', 'decred', 'salt', 'dash', 'litecoin', 'icon', 'omisego', 'nano', 'request']
+amount_coins = [0.00426363, 0.526026623632742, 64.925, 0.2391478, 1.5285804, 0.222474, 0.194639, 12.42636, 0.9669056, 9.615973, 28.971]
 while True:
 	for coin in coins:
 		get_coin_price(coin)
