@@ -1,6 +1,10 @@
 import requests
 import time
+from datetime import datetime
+from bs4 import BeautifulSoup
 coinArray = []
+
+start = datetime.now()
 
 def get_coin_price(coin):
 	COIN_API_URL = 'https://api.coinmarketcap.com/v1/ticker/' + coin + '/?convert=NOK'
@@ -21,7 +25,7 @@ amount_coins = [0.00426363, 0.526026623632742, 64.925, 0.2391478, 1.5285804, 0.2
 while True:
 	for coin in coins:
 		get_coin_price(coin)
-	coinArray.sort(key=lambda coin: coin.change24, reverse=True)
+	coinArray.sort(key=lambda coin: coin.name)
 
 	new_money = 0
 	old_money = 0
@@ -37,33 +41,36 @@ while True:
 		totalchange24 = (new_money - old_money)/old_money * 100 #percentage
 		money_gain24 = new_money - old_money #fiat
 		#print item.name + " " + str(item.gain24)
-		print(item.name + "(" + item.symbol + "): \n" + "Price: " + str(round(float(item.price),2)) + " NOK\n" + "Change 24h: " + item.change24 + "%\n" + "Current Amount: " + str(item.currentAmount) + " " + item.symbol + "\n" + "Current Value: " + str(item.currentValue) + " NOK\n")
+		#print(item.name + "(" + item.symbol + "): \n" + "Price: " + str(round(float(item.price),2)) + " NOK\n" + "Change 24h: " + item.change24 + "%\n" + "Current Amount: " + str(item.currentAmount) + " " + item.symbol + "\n" + "Current Value: " + str(item.currentValue) + " NOK\n")
 
-	print (str(round(money_gain24, 2)) + " NOK\n")
-	print (str(round(totalchange24, 2)) + "%\n")
-	print (str(old_money) + "\n" + str(new_money))
+	#print (str(round(money_gain24, 2)) + " NOK\n")
+	#print (str(round(totalchange24, 2)) + "%\n")
+	#print (str(old_money) + "\n" + str(new_money))
 	prefix = ""
 	if totalchange24 > 0:
 		prefix = "+"
 	else:
 		prefix = "" 
 	f = open("index.html", "w")
-	f.write("""<!DOCTYPE html>
+	html_value = ("""<!DOCTYPE html>
 	<html lang="en">
 	<head>
 	  <meta charset="UTF-8">
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	  <link rel='stylesheet' type='text/css' href='main.css'>
-	  <title>Ticker</title>
+	  <title>Worthlet</title>
 	  <meta http-equiv="refresh" content="60">
 		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 	</head>
 	<body>
+	  <div id='big-text' class='cont'>	
 	  <h1>""" + prefix + """<span id='percent_change'>""" + str(round(totalchange24,2)) + """</span><span class='smalltext'>%<span></h1>
 	  <h2>""" + prefix + str(round(money_gain24, 2)) + """<span class='smalltext'>NOK</span></h2>
-	  <p>Total:</p>
 	  <h3>""" + str(round(new_money,2)) + """<span class='smalltext'>NOK</span></h3>
+	  </div>
+	  <div id='currencies' class='cont'>
+	  </div>
 
 	</body>
 	<script type='text/javascript'>
@@ -73,11 +80,48 @@ while True:
 	    document.querySelector('body').style.backgroundColor = 'green';
 	  }
 	  else {
-	    document.querySelector('body').style.backgroundColor = 'red';
+	    document.querySelector('body').style.backgroundColor = '#8b0000';
 	  }
 	</script>
 	</html>
 	 """)
+	
+	
+	soup = BeautifulSoup(html_value, features="lxml")
+	original_tag = soup.find(id="currencies")
+	for coin in coinArray:
+		new_div = soup.new_tag('div')
+		if float(coin.change24)>0:
+			new_div['class'] = "currency"
+		else:
+			new_div['class'] = "currency negative"
+		new_name = soup.new_tag('p')
+		new_name.string = coin.name
+		new_div.append(new_name)
+		new_price = soup.new_tag('p')
+		new_price.string = str(round(float(coin.price),2)) + " NOK"
+		new_div.append(new_price)
+		new_change = soup.new_tag('p')
+		new_change.string = str(coin.change24) + "%"
+		new_div.append(new_change)
+		new_currentAmount = soup.new_tag('p')
+		new_currentAmount = soup.new_tag('p')
+		new_currentAmount.string = str(round(coin.currentAmount,8)) + " " + coin.symbol
+		new_div.append(new_currentAmount)
+		new_currentValue = soup.new_tag('p')
+		new_currentValue.string = str(round(coin.currentValue,2)) + " NOK"
+		new_div.append(new_currentValue)
+		original_tag.append(new_div)
+	new_time = soup.new_tag('p')
+	new_time['class'] = "time-keeper"
+	new_time.string = "©Erik Skår, 2019 | Last updated: " + str(datetime.now())[:-7]
+	body_tag = soup.body
+	body_tag.append(new_time)
+	#print(soup)
+	f.write(str(soup))
 	f.close()
 	coinArray = []
+	print("running successfully " + str(datetime.now())[:-7])
+	now = str(datetime.now() - start)[:-7]
+	print("uptime: " + now)
 	time.sleep(60)
