@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	  <link rel='stylesheet' type='text/css' href='main.css'>
+	  <title>Ticker</title>
+	  <meta http-equiv="refresh" content="60">
+	</head>
+	<body>
+	  <h1>+<span id='percent_change'>7.3</span><span class='smalltext'>%<span></h1>
+	  <h2>+111.22<span class='smalltext'>NOK</span></h2>
+	  <p>Total:</p>
+	  <h3>1635.75<span class='smalltext'>NOK</span></h3>
+
+	</body>
+	<script type='text/javascript'>
+	let h1var = document.querySelector('#percent_change').innerHTML;
+	h1var = Number(h1var)
+	  if(h1var > 0) {
+	    document.querySelector('body').style.backgroundColor = 'green';
+	  }
+	  else {
+	    document.querySelector('body').style.backgroundColor = 'red';
+	  }
+	</script>
+	</html>
+	 
