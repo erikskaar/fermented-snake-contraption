@@ -39,9 +39,9 @@ while True:
 		#print item.name + " " + str(item.gain24)
 		print(item.name + "(" + item.symbol + "): \n" + "Price: " + str(round(float(item.price),2)) + " NOK\n" + "Change 24h: " + item.change24 + "%\n" + "Current Amount: " + str(item.currentAmount) + " " + item.symbol + "\n" + "Current Value: " + str(item.currentValue) + " NOK\n")
 
-	print str(round(totalchange24, 2)) + "%\n"
-	print str(round(money_gain24, 2)) + " NOK\n"
-	print str(old_money) + "\n" + str(new_money)
+	print (str(round(money_gain24, 2)) + " NOK\n")
+	print (str(round(totalchange24, 2)) + "%\n")
+	print (str(old_money) + "\n" + str(new_money))
 	prefix = ""
 	if totalchange24 > 0:
 		prefix = "+"
@@ -57,6 +57,7 @@ while True:
 	  <link rel='stylesheet' type='text/css' href='main.css'>
 	  <title>Ticker</title>
 	  <meta http-equiv="refresh" content="60">
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 	</head>
 	<body>
 	  <h1>""" + prefix + """<span id='percent_change'>""" + str(round(totalchange24,2)) + """</span><span class='smalltext'>%<span></h1>

@@ -2,6 +2,8 @@ body {
   background-color: white;
   display: flex;
   flex-wrap: wrap;
+  font-family: 'Roboto';
+  justify-content: center;
 }
 h1, h2,h3, p {
   width: 100%;
@@ -10,6 +12,7 @@ h1, h2,h3, p {
   font-size: 400%;
   padding: 0;
   margin: 0;
+  justify-content: center;
 }
 h1 {
   font-size: 12em;
