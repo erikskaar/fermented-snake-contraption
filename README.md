@@ -9,6 +9,7 @@ Perfect for that raspberry pi you have laying around the house that you don't kn
     - Total wallet worth in the FIAT currency of your choice
     - Total wallet percentage and FIAT worth change the last 24 hours
     - Name, price, 24h percentage change, current amount and FIAT worth of each individual coin
+    - All prices are fetched every 60 seconds directly from coinmarketcap!
 - Changing background color for your total gain / loss
     - Green for when you have earned money the last 24 hours and red for when you've lost money 
 - Individual background color change for each of your coins
@@ -31,6 +32,7 @@ If you for some reason need to install BeautifulSoup (shouldn't be needed), then
 - Better scaling for smaller screens and many currencies
 - Something more exciting in the background than just colors
 - Some general code cleanup to make it a little more understandable if someone wants to make their own version
+- Direct wallet integration would be nice, but there aren't many wallets that support a lot of coins which have public APIs :(
 
 ### Donations
 If you for some reason like this enough to consider donating to me:
