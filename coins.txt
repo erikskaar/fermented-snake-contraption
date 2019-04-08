@@ -1,0 +1,11 @@
+bitcoin
+ethereum
+stellar
+decred
+salt
+dash
+litecoin
+icon
+omisego
+nano
+request

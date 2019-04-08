@@ -4,24 +4,40 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 coinArray = []
 
+currencyFile = open("currency.txt", "r")
+chosen_currency = str(currencyFile.read().strip())
+
 start = datetime.now()
 
 def get_coin_price(coin):
-	COIN_API_URL = 'https://api.coinmarketcap.com/v1/ticker/' + coin + '/?convert=NOK'
+	COIN_API_URL = 'https://api.coinmarketcap.com/v1/ticker/' + coin + '/?convert=' + chosen_currency.upper()
 	response = requests.get(COIN_API_URL)
 	response_json = response.json()
 	rsp = response_json[0]
 	class coin:
 		name = rsp['name']
-		price = rsp['price_nok']
+		price = rsp['price_' + chosen_currency]
 		change24 = rsp['percent_change_24h']
 		symbol = rsp['symbol']
 		old_price = float(price) * (1-float(change24)/100) #old price of coin
 		gain24 = float(price) - float(old_price) #24 hour dollar gain
 	coinArray.append(coin)
 
-coins = ['bitcoin', 'ethereum', 'stellar', 'decred', 'salt', 'dash', 'litecoin', 'icon', 'omisego', 'nano', 'request']
-amount_coins = [0.00426363, 0.526026623632742, 64.925, 0.2391478, 1.5285804, 0.222474, 0.194639, 12.42636, 0.9669056, 9.615973, 28.971]
+coins = []
+coinFile = open("coins.txt", "r")
+for line in coinFile:
+	coins.append(str(line).strip())
+
+coinFile.close()
+
+amount_coins = []
+amountFile = open("amount_coins.txt", "r")
+for line in amountFile:
+	amount_coins.append(float(line.strip()))
+
+amountFile.close()
+
+####################################################LOOP#################################
 while True:
 	for coin in coins:
 		get_coin_price(coin)
@@ -46,6 +62,7 @@ while True:
 	#print (str(round(money_gain24, 2)) + " NOK\n")
 	#print (str(round(totalchange24, 2)) + "%\n")
 	#print (str(old_money) + "\n" + str(new_money))
+
 	prefix = ""
 	if totalchange24 > 0:
 		prefix = "+"
@@ -66,8 +83,8 @@ while True:
 	<body>
 	  <div id='big-text' class='cont'>	
 	  <h1>""" + prefix + """<span id='percent_change'>""" + str(round(totalchange24,2)) + """</span><span class='smalltext'>%<span></h1>
-	  <h2>""" + prefix + str(round(money_gain24, 2)) + """<span class='smalltext'>NOK</span></h2>
-	  <h3>""" + str(round(new_money,2)) + """<span class='smalltext'>NOK</span></h3>
+	  <h2>""" + prefix + str(round(money_gain24, 2)) + """<span class='smalltext'>""" + chosen_currency.upper() + """</span></h2>
+	  <h3>""" + str(round(new_money,2)) + """<span class='smalltext'>""" + chosen_currency.upper() + """</span></h3>
 	  </div>
 	  <div id='currencies' class='cont'>
 	  </div>
@@ -89,6 +106,7 @@ while True:
 	
 	soup = BeautifulSoup(html_value, "html.parser")
 	original_tag = soup.find(id="currencies")
+
 	for coin in coinArray:
 		new_div = soup.new_tag('div')
 		if float(coin.change24)>0:
@@ -99,7 +117,7 @@ while True:
 		new_name.string = coin.name
 		new_div.append(new_name)
 		new_price = soup.new_tag('p')
-		new_price.string = str(round(float(coin.price),2)) + " NOK"
+		new_price.string = str(round(float(coin.price),2)) + " " + chosen_currency.upper()
 		new_div.append(new_price)
 		new_change = soup.new_tag('p')
 		new_change.string = str(coin.change24) + "%"
@@ -109,19 +127,21 @@ while True:
 		new_currentAmount.string = str(round(coin.currentAmount,8)) + " " + coin.symbol
 		new_div.append(new_currentAmount)
 		new_currentValue = soup.new_tag('p')
-		new_currentValue.string = str(round(coin.currentValue,2)) + " NOK"
+		new_currentValue.string = str(round(coin.currentValue,2)) + " " + chosen_currency.upper()
 		new_div.append(new_currentValue)
 		original_tag.append(new_div)
+
 	new_time = soup.new_tag('p')
 	new_time['class'] = "time-keeper"
 	new_time.string = "©Erik Skår, 2019 | Last updated: " + str(datetime.now())[:-7]
 	body_tag = soup.body
 	body_tag.append(new_time)
-	#print(soup)
 	f.write(str(soup))
 	f.close()
+
 	coinArray = []
 	print("running successfully " + str(datetime.now())[:-7])
 	now = str(datetime.now() - start)[:-7]
 	print("uptime: " + now)
+
 	time.sleep(60)
