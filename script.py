@@ -87,7 +87,7 @@ while True:
 	 """)
 	
 	
-	soup = BeautifulSoup(html_value, features="lxml")
+	soup = BeautifulSoup(html_value, "html.parser")
 	original_tag = soup.find(id="currencies")
 	for coin in coinArray:
 		new_div = soup.new_tag('div')
