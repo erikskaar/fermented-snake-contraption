@@ -49,11 +49,13 @@ while True:
 	
 
 	for item in coinArray:
+		item.name = item.name.replace(' ', '-')
 		item.currentAmount = amount_coins[coins.index(str(item.name).lower())]
 		item.currentValue = float(item.currentAmount)*float(item.price)
 		item.oldValue = float(item.currentAmount)*float(item.old_price)
 		old_money += float(item.oldValue) #yesterdays worth
 		new_money += float(item.currentValue) #todays worth
+
 		totalchange24 = (new_money - old_money)/old_money * 100 #percentage
 		money_gain24 = new_money - old_money #fiat
 		#print item.name + " " + str(item.gain24)

@@ -9,3 +9,4 @@ icon
 omisego
 nano
 request
+basic-attention-token
