@@ -41,6 +41,8 @@ amountFile.close()
 while True:
 	for coin in coins:
 		get_coin_price(coin)
+	coinArray.sort(key=lambda coin: coin.change24)
+	bestCoin = coinArray[-1]
 	coinArray.sort(key=lambda coin: coin.name)
 
 	new_money = 0
@@ -113,8 +115,11 @@ while True:
 		new_div = soup.new_tag('div')
 		if float(coin.change24)>0:
 			new_div['class'] = "currency"
+
 		else:
 			new_div['class'] = "currency negative"
+		if coin == bestCoin:
+			new_div['class'] += " best-coin"
 		new_name = soup.new_tag('p')
 		new_name.string = coin.name
 		new_div.append(new_name)

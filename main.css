@@ -5,11 +5,12 @@ body {
   justify-content: center;
   margin: 0;
   overflow-x: hidden;
+  overflow-y: scroll;
 }
 .cont {
   padding-left: 1em;
   padding-right: 1em;
-  margin-top: 15vh;
+  margin-top: 10vh;
   width: 50%;
   display: flex;
   flex-wrap: wrap;
@@ -25,7 +26,6 @@ h1, h2,h3, p {
 }
 h1 {
   font-size: 12em;
-  padding-top: 0vh;
 }
 h2 {
   text-align: right;
@@ -60,8 +60,61 @@ p {
   position: absolute;
   bottom: 0px;
   text-align: left;
-  margin:1em;
+  padding-left: 1em;
 }
 .negative {
   background-color: #8b0000;
+}
+@media only screen and (max-width: 960px) {
+	body {
+		flex-direction: column;
+	}
+	.cont {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}
+	#currencies {
+		padding-left: 0;
+	}
+	.currency {
+		width: 10%;
+		max-height: 25%;
+	}
+	h2,h3 {
+		font-size: 3em;
+		width: 50%;
+		text-align: center;
+		border-bottom: 0;
+	}
+	h3 {
+		text-align: right;
+	}
+	h2 {
+		text-align: left;
+	}
+	h1 {
+		font-size: 6em;
+	}
+	.currency>p {
+		font-size: 1em;
+	}
+	.time-keeper {
+		margin: 0;
+	}
+}
+@media only screen and (max-width: 480px) {
+	.currency {
+		display: none;
+	}
+	.best-coin {
+		display: block;
+	}
+}
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+.best-coin {
+	background-color: #0168AD;
 }

@@ -11,9 +11,10 @@ Perfect for that raspberry pi you have laying around the house that you don't kn
     - Name, price, 24h percentage change, current amount and FIAT worth of each individual coin
     - All prices are fetched every 60 seconds directly from coinmarketcap!
 - Changing background color for your total gain / loss
-    - Green for when you have earned money the last 24 hours and red for when you've lost money 
+    - Green for when you have earned money the last 24 hours and red for when you've lost money
 - Individual background color change for each of your coins
     - Same as above, but for each individual coin
+    - The coin that has the highest percentage increase the past 24 hours will be highlighted in blue
 - Easy addition and removal of your coins
     - Add and remove lines from 2 .txt files to make sure you only track the coins you want
 ### Instructions
