@@ -49,7 +49,7 @@ p {
   width: 25%;
   padding: 1em;
   margin: 0;
-  background-color: green;
+  background-color: #4CBB17;
   flex-grow: 3;
 }
 .currency>p {

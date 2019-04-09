@@ -94,7 +94,7 @@ while True:
 	let h1var = document.querySelector('#percent_change').innerHTML;
 	h1var = Number(h1var)
 	  if(h1var > 0) {
-	    document.querySelector('body').style.backgroundColor = 'green';
+	    document.querySelector('body').style.backgroundColor = '#4CBB17';
 	  }
 	  else {
 	    document.querySelector('body').style.backgroundColor = '#8b0000';
