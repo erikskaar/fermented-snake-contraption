@@ -2,12 +2,15 @@ import requests
 import time
 from datetime import datetime
 from bs4 import BeautifulSoup
+
+start = datetime.now()
+
 coinArray = []
 
 currencyFile = open("currency.txt", "r")
 chosen_currency = str(currencyFile.read().strip())
 
-start = datetime.now()
+
 
 def get_coin_price(coin):
 	COIN_API_URL = 'https://api.coinmarketcap.com/v1/ticker/' + coin + '/?convert=' + chosen_currency.upper()
@@ -35,8 +38,7 @@ amountFile = open("amount_coins.txt", "r")
 for line in amountFile:
 	amount_coins.append(float(line.strip()))
 
-amountFile.close()
-
+print("Please open the index.html that is currently being generated in your folder.")
 ####################################################LOOP#################################
 while True:
 	for coin in coins:
