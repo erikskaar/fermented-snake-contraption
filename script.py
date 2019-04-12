@@ -45,9 +45,6 @@ while True:
 		get_coin_price(coin)
 	coinArray.sort(key=lambda coin: float(coin.change24))
 	bestCoin = coinArray[-1]
-	for coin in coinArray:
-		print(coin.name, coin.change24)
-	print(bestCoin.name)
 	coinArray.sort(key=lambda coin: coin.name)
 
 	new_money = 0
