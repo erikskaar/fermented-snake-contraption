@@ -43,8 +43,11 @@ print("Please open the index.html that is currently being generated in your fold
 while True:
 	for coin in coins:
 		get_coin_price(coin)
-	coinArray.sort(key=lambda coin: coin.change24)
+	coinArray.sort(key=lambda coin: float(coin.change24))
 	bestCoin = coinArray[-1]
+	for coin in coinArray:
+		print(coin.name, coin.change24)
+	print(bestCoin.name)
 	coinArray.sort(key=lambda coin: coin.name)
 
 	new_money = 0
@@ -117,7 +120,8 @@ while True:
 		new_div = soup.new_tag('div')
 		if float(coin.change24)>0:
 			new_div['class'] = "currency"
-
+		elif float(coin.change24)==0:
+			new_div['class'] = "currency neutral"
 		else:
 			new_div['class'] = "currency negative"
 		if coin == bestCoin:
