@@ -127,7 +127,10 @@ while True:
 		new_price.string = str(round(float(coin.price),2)) + " " + chosen_currency.upper()
 		new_div.append(new_price)
 		new_change = soup.new_tag('p')
-		new_change.string = str(coin.change24) + "%"
+		coinIndex = ""
+		if float(coin.change24)>0:
+			coinIndex = "+"
+		new_change.string = coinIndex + str(coin.change24) + "%"
 		new_div.append(new_change)
 		new_currentAmount = soup.new_tag('p')
 		new_currentAmount = soup.new_tag('p')
